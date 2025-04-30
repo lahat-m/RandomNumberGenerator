@@ -1,17 +1,15 @@
 package com.example.randomnumberapp
-
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import android.app.Application
+
+
 
 class RandomNumberApp : Application() {
 
     companion object {
         private lateinit var instance: RandomNumberApp
-
-        private val geminiApiService = object : GeminiApiService {
-            override suspend fun getComment(number: Int): String {
-                return "You got number $number — that's awesome!"
-            }
-        }
+        private lateinit var geminiApiService: GeminiApiService
 
         fun getGeminiApiService(): GeminiApiService = geminiApiService
     }
@@ -19,5 +17,12 @@ class RandomNumberApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://numbersapi.com/")
+            .addConverterFactory(ScalarsConverterFactory.create()) // plain text
+            .build()
+
+        geminiApiService = retrofit.create(GeminiApiService::class.java)
     }
 }

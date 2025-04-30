@@ -51,6 +51,9 @@ dependencies {
     implementation(libs.androidx.material3) // Already present, but ensure correct version
     implementation("com.google.android.material:material:1.4.0") // Add this line for full Material Components
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.scalars)
+
 
     // Other dependencies
     testImplementation(libs.junit)
@@ -60,4 +63,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
 }

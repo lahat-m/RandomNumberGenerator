@@ -1,4 +1,5 @@
 package com.example.randomnumberapp
+import android.util.Log
 
 class NumberRepository(private val geminiApiService: GeminiApiService) {
     fun generateRandomNumber(): Int {
@@ -6,6 +7,13 @@ class NumberRepository(private val geminiApiService: GeminiApiService) {
     }
 
     suspend fun getCommentForNumber(number: Int): String {
-        return geminiApiService.getComment(number)
+        return try {
+            geminiApiService.getComment(number)
+        } catch (e: Exception) {
+            Log.e("NumberRepository", "API call failed: ${e.localizedMessage}", e)
+            "No fact available. Try again!"
+        }
     }
+
+
 }
