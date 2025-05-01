@@ -50,4 +50,21 @@ class MainViewModel(private val repository: NumberRepository) : ViewModel() {
         _comment.value = "Let's see what number you get..."
         _isLoading.value = false
     }
+    fun generateNewNumberInRange(min: Int, max: Int) {
+        _isLoading.value = true
+        val newNumber = (min..max).random()
+        _randomNumber.value = newNumber
+
+        viewModelScope.launch {
+            try {
+                val generatedComment = repository.getCommentForNumber(newNumber)
+                _comment.value = generatedComment
+                addToHistory(newNumber, generatedComment)
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
 }

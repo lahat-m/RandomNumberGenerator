@@ -53,6 +53,10 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.retrofit)
     implementation(libs.retrofit.scalars)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity)
+    implementation("com.google.code.gson:gson:2.10.1")
+
 
 
     // Other dependencies
