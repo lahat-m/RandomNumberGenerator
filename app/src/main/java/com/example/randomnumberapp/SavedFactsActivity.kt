@@ -23,7 +23,12 @@ class SavedFactsActivity : AppCompatActivity() {
         savedFacts.addAll(SharedPrefsHelper.getSavedFacts(this))
         adapter = SavedFactsAdapter(savedFacts) { number, comment ->
             SharedPrefsHelper.deleteFact(this, number, comment)
-            savedFacts.remove(Pair(number, comment))
+
+            // Update list from storage again to ensure sync
+            val updatedFacts = SharedPrefsHelper.getSavedFacts(this)
+            savedFacts.clear()
+            savedFacts.addAll(updatedFacts)
+
             adapter.notifyDataSetChanged()
             Toast.makeText(this, "Deleted!", Toast.LENGTH_SHORT).show()
         }

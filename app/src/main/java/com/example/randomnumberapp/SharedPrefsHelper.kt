@@ -1,7 +1,6 @@
 package com.example.randomnumberapp.util
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -29,7 +28,10 @@ object SharedPrefsHelper {
     fun deleteFact(context: Context, number: Int, comment: String) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val facts = getSavedFacts(context).toMutableList()
-        facts.remove(Pair(number, comment))
+
+        // Safer removal using predicate
+        facts.removeAll { it.first == number && it.second == comment }
+
         val json = Gson().toJson(facts)
         prefs.edit().putString(SAVED_FACTS_KEY, json).apply()
     }
