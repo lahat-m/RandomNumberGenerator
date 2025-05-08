@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupObservers()
 
-        numberTextView.text = "Generated Numbers"
+        numberTextView.text = "🔢⁉️"
         viewModel.setInitialState()
 
         generateButton.setOnClickListener {
